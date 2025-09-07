@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOcoin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(200, 0, 0, 0.3);
+            border: 1px solid #500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #500;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff2a2a;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .balance-section {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        
+        .balance-label {
+            color: #ff2a2a;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .balance {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        }
+        
+        .currency {
+            font-size: 0.6em;
+            color: #ff2a2a;
+            vertical-align: super;
+        }
+        
+        .mine-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .mine-button {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff2a2a, #800);
+            border: none;
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mine-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .mine-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff2a2a;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        .auto-mine-status {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(40, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 1px solid #500;
+        }
+        
+        .auto-mine-text {
+            color: #ff2a2a;
+            font-weight: bold;
+        }
+        
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background: rgba(40, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #500;
+        }
+        
+        .menu-item:hover {
+            background: rgba(60, 0, 0, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        .menu-icon {
+            font-size: 1.8em;
+            color: #ff2a2a;
+            margin-bottom: 10px;
+        }
+        
+        .menu-text {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(20, 20, 20, 0.95);
+            color: #ff2a2a;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease;
+            border: 1px solid #500;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1000;
+            min-width: 250px;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.8em;
+        }
+        
+        /* Стили для модальных окон */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #500;
+            box-shadow: 0 0 30px rgba(200, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #500;
+        }
+        
+        .modal-title {
+            color: #ff2a2a;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        .task-item {
+            background: rgba(40, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #500;
+        }
+        
+        .task-info {
+            flex-grow: 1;
+        }
+        
+        .task-name {
+            font-weight: bold;
+            color: #ff2a2a;
+            margin-bottom: 5px;
+        }
+        
+        .task-description {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        .task-reward {
+            background: #ff2a2a;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .shop-item {
+            background: rgba(40, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #500;
+            transition: all 0.3s;
+        }
+        
+        .shop-item:hover {
+            background: rgba(60, 0, 0, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        .shop-item-image {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff2a2a, #800);
+            border-radius: 10px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+        }
+        
+        .shop-item-name {
+            font-weight: bold;
+            color: #ff2a2a;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+        
+        .shop-item-price {
+            color: #aaa;
+            font-size: 1.1em;
+        }
+        
+        .product-details {
+            text-align: center;
+        }
+        
+        .product-image {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #ff2a2a, #800);
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+        }
+        
+        .product-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff2a2a;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.3em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .back-button {
+            background: #333;
+            color: white;
+        }
+        
+        .back-button:hover {
+            background: #555;
+        }
+        
+        .order-button {
+            background: linear-gradient(45deg, #ff2a2a, #800);
+            color: white;
+        }
+        
+        .order-button:hover {
+            background: linear-gradient(45deg, #ff4040, #a00);
+        }
+        
+        .address-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #500;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+        
+        .address-input:focus {
+            outline: none;
+            border-color: #ff2a2a;
+        }
+        
+        .history-item {
+            background: rgba(40, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #500;
+        }
+        
+        .history-order-number {
+            font-weight: bold;
+            color: #ff2a2a;
+            margin-bottom: 10px;
+        }
+        
+        .history-details {
+            color: #aaa;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        
+        .history-status {
+            color: #ff2a2a;
+            font-weight: bold;
+            text-align: right;
+        }
+        
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 42, 42, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #ff2a2a;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #ff2a2a;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DOcoin</h1>
+        </div>
+        
+        <div class="balance-section">
+            <div class="balance-label">Ваш баланс</div>
+            <div class="balance" id="balance">0.0000 <span class="currency">DOcoin</span></div>
+        </div>
+        
+        <div class="mine-section">
+            <button class="mine-button" id="mineButton">
+                <div class="mine-icon"><i class="fas fa-coins"></i></div>
+                <div>Майнить!</div>
+            </button>
+        </div>
+        
+        <div class="auto-mine-status">
+            <div class="auto-mine-text" id="autoMineStatus">Автомайнинг: выключен</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="power">1</div>
+                <div class="stat-label">Мощность</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="income">0/ч</div>
+                <div class="stat-label">Заработок</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="level">1</div>
+                <div class="stat-label">Уровень</div>
+            </div>
+        </div>
+        
+        <div class="menu">
+            <div class="menu-item" onclick="openModal('shop')">
+                <div class="menu-icon"><i class="fas fa-store"></i></div>
+                <div class="menu-text">Магазин</div>
+            </div>
+            <div class="menu-item" onclick="openModal('bonus')">
+                <div class="menu-icon"><i class="fas fa-gift"></i></div>
+                <div class="menu-text">Бонусы</div>
+            </div>
+            <div class="menu-item" onclick="openModal('tasks')">
+                <div class="menu-icon"><i class="fas fa-tasks"></i></div>
+                <div class="menu-text">Задания</div>
+            </div>
+            <div class="menu-item" onclick="openModal('referral')">
+                <div class="menu-icon"><i class="fas fa-users"></i></div>
+                <div class="menu-text">Рефералы</div>
+            </div>
+            <div class="menu-item" onclick="openModal('withdraw')">
+                <div class="menu-icon"><i class="fas fa-wallet"></i></div>
+                <div class="menu-text">Вывод</div>
+            </div>
+            <div class="menu-item" onclick="openModal('settings')">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Настройки</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            DOcoin © 2023. Все права защищены.
+        </div>
+    </div>
+
+    <!-- Модальное окно магазина -->
+    <div class="modal" id="shop-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Магазин DOcoin</h2>
+                <button class="close-modal" onclick="closeModal('shop')">&times;</button>
+            </div>
+            <div class="shop-items">
+                <div class="shop-item" onclick="openProduct('cap')">
+                    <div class="shop-item-image">🧢</div>
+                    <div class="shop-item-name">Кепка DOcoin</div>
+                    <div class="shop-item-price">5000 DOcoin</div>
+                </div>
+                <div class="shop-item" onclick="openProduct('tshirt')">
+                    <div class="shop-item-image">👕</div>
+                    <div class="shop-item-name">Футболка DOcoin</div>
+                    <div class="shop-item-price">10000 DOcoin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно товара -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="product-modal-title">Товар</h2>
+                <button class="close-modal" onclick="closeModal('product')">&times;</button>
+            </div>
+            <div class="product-details">
+                <div class="product-image" id="product-image">🧢</div>
+                <div class="product-name" id="product-name">Кепка DOcoin</div>
+                <div class="product-price" id="product-price">5000 DOcoin</div>
+                <div class="buttons-container">
+                    <button class="action-button back-button" onclick="backToShop()">Назад</button>
+                    <button class="action-button order-button" onclick="startOrder()">Заказать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно заказа -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Оформление заказа</h2>
+                <button class="close-modal" onclick="closeModal('order')">&times;</button>
+            </div>
+            <div id="order-content">
+                <div class="product-details">
+                    <div class="product-image" id="order-product-image">🧢</div>
+                    <div class="product-name" id="order-product-name">Кепка DOcoin</div>
+                    <div class="product-price" id="order-product-price">5000 DOcoin</div>
+                </div>
+                <input type="text" class="address-input" id="address-input" placeholder="Введите адрес доставки">
+                <div class="buttons-container">
+                    <button class="action-button back-button" onclick="backToProduct()">Отмена</button>
+                    <button class="action-button order-button" onclick="processPayment()">Оплатить</button>
+                </div>
+                <div id="error-message" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно истории заказов -->
+    <div class="modal" id="history-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">История заказов</h2>
+                <button class="close-modal" onclick="closeModal('history')">&times;</button>
+            </div>
+            <div id="orders-list">
+                <!-- Заказы будут добавляться здесь -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Остальные модальные окна -->
+    <div class="modal" id="tasks-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Задания</h2>
+                <button class="close-modal" onclick="closeModal('tasks')">&times;</button>
+            </div>
+            <div class="task-list">
+                <div class="task-item" id="task1">
+                    <div class="task-info">
+                        <div class="task-name">Подписка на Telegram</div>
+                        <div class="task-description">Подпишитесь на наш Telegram-канал</div>
+                    </div>
+                    <div class="task-reward">+5 DOcoin</div>
+                </div>
+                <div class="task-item" id="task2">
+                    <div class="task-info">
+                        <div class="task-name">Ежедневный вход</div>
+                        <div class="task-description">Заходите в игру 7 дней подряд</div>
+                    </div>
+                    <div class="task-reward">+10 DOcoin</div>
+                </div>
+                <div class="task-item" id="task3">
+                    <div class="task-info">
+                        <div class="task-name">Пригласи друга</div>
+                        <div class="task-description">Пригласите друга по реферальной ссылке</div>
+                    </div>
+                    <div class="task-reward">+15 DOcoin</div>
+                </div>
+                <div class="task-item" id="task4">
+                    <div class="task-info">
+                        <div class="task-name">Майнинг-марафон</div>
+                        <div class="task-description">Намайните 100 DOcoin за сутки</div>
+                    </div>
+                    <div class="task-reward">+20 DOcoin</div>
+                </div>
+                <div class="task-item" id="task5">
+                    <div class="task-info">
+                        <div class="task-name">Социальная активность</div>
+                        <div class="task-description">Поделитесь игрой в социальных сетях</div>
+                    </div>
+                    <div class="task-reward">+8 DOcoin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Настройки</h2>
+                <button class="close-modal" onclick="closeModal('settings')">&times;</button>
+            </div>
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-name">Уведомления</div>
+                    <label class="switch">
+                        <input type="checkbox" id="notifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-name">Звуковые эффекты</div>
+                    <label class="switch">
+                        <input type="checkbox" id="sound" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-name">Виброотклик</div>
+                    <label class="switch">
+                        <input type="checkbox" id="vibration">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-name">Темная тема</div>
+                    <label class="switch">
+                        <input type="checkbox" id="theme" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-name">Авто-майнинг</div>
+                    <label class="switch">
+                        <input type="checkbox" id="autominer">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Вывод средств</h2>
+                <button class="close-modal" onclick="closeModal('withdraw')">&times;</button>
+            </div>
+            <div class="soon-text">Скоро</div>
+            <p style="text-align: center; color: #aaa; padding: 0 20px 20px;">
+                Функция вывода средств будет доступна в ближайшее время. 
+                Следите за обновлениями!
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="bonus-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Бонусы</h2>
+                <button class="close-modal" onclick="closeModal('bonus')">&times;</button>
+            </div>
+            <p style="text-align: center; color: #aaa; padding: 20px;">Ежедневные бонусы скоро появятся!</p>
+        </div>
+    </div>
+
+    <div class="modal" id="referral-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Рефералы</h2>
+                <button class="close-modal" onclick="closeModal('referral')">&times;</button>
+            </div>
+            <p style="text-align: center; color: #aaa; padding: 20px;">Реферальная программа скоро будет доступна!</p>
+        </div>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <script>
+        // Основные переменные
+        let balance = 0;
+        let power = 1;
+        let level = 1;
+        let income = 0;
+        let autoMineInterval = null;
+        let autoMineEnabled = false;
+        let currentProduct = null;
+        let orders = [];
+        
+        const mineButton = document.getElementById('mineButton');
+        const balanceDisplay = document.getElementById('balance');
+        const powerDisplay = document.getElementById('power');
+        const incomeDisplay = document.getElementById('income');
+        const levelDisplay = document.getElementById('level');
+        const autoMineStatus = document.getElementById('autoMineStatus');
+        const autoMineSwitch = document.getElementById('autominer');
+        const loader = document.getElementById('loader');
+        
+        // Инициализация
+        function init() {
+            // Загрузка сохраненных данных
+            const savedData = localStorage.getItem('docoinGameData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                balance = data.balance || 0;
+                power = data.power || 1;
+                level = data.level || 1;
+                income = data.income || 0;
+                autoMineEnabled = data.autoMineEnabled || false;
+                orders = data.orders || [];
+                
+                // Установка переключателя автомайнинга
+                autoMineSwitch.checked = autoMineEnabled;
+                updateAutoMineStatus();
+                
+                // Запуск автомайнинга если он был включен
+                if (autoMineEnabled) {
+                    startAutoMine();
+                }
+            }
+            
+            updateDisplay();
+            
+            // Обработчик изменения переключателя автомайнинга
+            autoMineSwitch.addEventListener('change', function() {
+                autoMineEnabled = this.checked;
+                updateAutoMineStatus();
+                saveGameData();
+                
+                if (autoMineEnabled) {
+                    startAutoMine();
+                } else {
+                    stopAutoMine();
+                }
+            });
+        }
+        
+        // Функция майнинга
+        mineButton.addEventListener('click', function() {
+            mineCoins();
+            
+            // Анимация нажатия
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+        });
+        
+        // Функция добычи монет
+        function mineCoins() {
+            balance += 0.0003 * power;
+            updateDisplay();
+            saveGameData();
+            
+            // Анимация баланса
+            balanceDisplay.classList.add('coin-animation');
+            setTimeout(() => {
+                balanceDisplay.classList.remove('coin-animation');
+            }, 300);
+        }
+        
+        // Запуск автомайнинга
+        function startAutoMine() {
+            if (autoMineInterval) {
+                clearInterval(autoMineInterval);
+            }
+            
+            // Майнинг каждые 5 секунд
+            autoMineInterval = setInterval(() => {
+                mineCoins();
+            }, 5000);
+        }
+        
+        // Остановка автомайнинга
+        function stopAutoMine() {
+            if (autoMineInterval) {
+                clearInterval(autoMineInterval);
+                autoMineInterval = null;
+            }
+        }
+        
+        // Обновление статуса автомайнинга
+        function updateAutoMineStatus() {
+            if (autoMineEnabled) {
+                autoMineStatus.textContent = 'Автомайнинг: включен (+0.0003 каждые 5 сек)';
+                autoMineStatus.style.color = '#0f0';
+            } else {
+                autoMineStatus.textContent = 'Автомайнинг: выключен';
+                autoMineStatus.style.color = '#ff2a2a';
+            }
+        }
+        
+        // Обновление отображения
+        function updateDisplay() {
+            balanceDisplay.textContent = balance.toFixed(4);
+            powerDisplay.textContent = power;
+            incomeDisplay.textContent = income.toFixed(4) + '/ч';
+            levelDisplay.textContent = level;
+        }
+        
+        // Сохранение данных игры
+        function saveGameData() {
+            const gameData = {
+                balance: balance,
+                power: power,
+                level: level,
+                income: income,
+                autoMineEnabled: autoMineEnabled,
+                orders: orders
+            };
+            localStorage.setItem('docoinGameData', JSON.stringify(gameData));
+        }
+        
+        // Функции для модальных окон
+        function openModal(modalType) {
+            document.getElementById(modalType + '-modal').style.display = 'flex';
+            
+            // Если открываем историю, обновляем список заказов
+            if (modalType === 'history') {
+                updateOrdersList();
+            }
+        }
+        
+        function closeModal(modalType) {
+            document.getElementById(modalType + '-modal').style.display = 'none';
+        }
+        
+        // Функции для магазина
+        function openProduct(productType) {
+            currentProduct = productType;
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('product-modal-title');
+            const image = document.getElementById('product-image');
+            const name = document.getElementById('product-name');
+            const price = document.getElementById('product-price');
+            
+            if (productType === 'cap') {
+                title.textContent = 'Кепка DOcoin';
+                image.textContent = '🧢';
+                name.textContent = 'Кепка DOcoin';
+                price.textContent = '5000 DOcoin';
+            } else if (productType === 'tshirt') {
+                title.textContent = 'Футболка DOcoin';
+                image.textContent = '👕';
+                name.textContent = 'Футболка DOcoin';
+                price.textContent = '10000 DOcoin';
+            }
+            
+            closeModal('shop');
+            modal.style.display = 'flex';
+        }
+        
+        function backToShop() {
+            closeModal('product');
+            openModal('shop');
+        }
+        
+        function startOrder() {
+            const modal = document.getElementById('order-modal');
+            const image = document.getElementById('order-product-image');
+            const name = document.getElementById('order-product-name');
+            const price = document.getElementById('order-product-price');
+            
+            if (currentProduct === 'cap') {
+                image.textContent = '🧢';
+                name.textContent = 'Кепка DOcoin';
+                price.textContent = '5000 DOcoin';
+            } else if (currentProduct === 'tshirt') {
+                image.textContent = '👕';
+                name.textContent = 'Футболка DOcoin';
+                price.textContent = '10000 DOcoin';
+            }
+            
+            // Очищаем поле адреса и сообщение об ошибке
+            document.getElementById('address-input').value = '';
+            document.getElementById('error-message').textContent = '';
+            
+            closeModal('product');
+            modal.style.display = 'flex';
+        }
+        
+        function backToProduct() {
+            closeModal('order');
+            openModal('product');
+        }
+        
+        function processPayment() {
+            const address = document.getElementById('address-input').value.trim();
+            const errorElement = document.getElementById('error-message');
+            
+            if (!address) {
+                errorElement.textContent = 'Введите адрес доставки';
+                return;
+            }
+            
+            const productPrice = currentProduct === 'cap' ? 5000 : 10000;
+            
+            if (balance < productPrice) {
+                errorElement.textContent = 'Недостаточно DOcoin для покупки';
+                return;
+            }
+            
+            // Показываем загрузку
+            showLoader();
+            
+            // Имитация обработки заказа
+            setTimeout(() => {
+                // Списываем средства
+                balance -= productPrice;
+                
+                // Создаем заказ
+                const order = {
+                    id: generateOrderId(),
+                    product: currentProduct === 'cap' ? 'Кепка DOcoin' : 'Футболка DOcoin',
+                    price: productPrice,
+                    address: address,
+                    status: 'В обработке',
+                    date: new Date().toLocaleDateString()
+                };
+                
+                orders.push(order);
+                
+                // Сохраняем данные
+                saveGameData();
+                updateDisplay();
+                
+                // Скрываем загрузку
+                hideLoader();
+                
+                // Закрываем окно заказа и открываем историю
+                closeModal('order');
+                openModal('history');
+            }, 1000);
+        }
+        
+        function generateOrderId() {
+            return 'DOC-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+        
+        function updateOrdersList() {
+            const ordersList = document.getElementById('orders-list');
+            ordersList.innerHTML = '';
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p style="text-align: center; color: #aaa;">У вас пока нет заказов</p>';
+                return;
+            }
+            
+            // Показываем заказы в обратном порядке (последние сначала)
+            orders.slice().reverse().forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'history-item';
+                orderElement.innerHTML = `
+                    <div class="history-order-number">Заказ #${order.id}</div>
+                    <div class="history-details">Товар: ${order.product}</div>
+                    <div class="history-details">Адрес: ${order.address}</div>
+                    <div class="history-details">Цена: ${order.price} DOcoin</div>
+                    <div class="history-details">Дата: ${order.date}</div>
+                    <div class="history-status">${order.status}</div>
+                `;
+                ordersList.appendChild(orderElement);
+            });
+        }
+        
+        // Функции загрузки
+        function showLoader() {
+            loader.style.display = 'flex';
+        }
+        
+        function hideLoader() {
+            loader.style.display = 'none';
+        }
+        
+        // Закрытие модальных окон при клике вне их
+        window.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // Автоматический доход каждый час
+        setInterval(() => {
+            if (income > 0) {
+                balance += income;
+                updateDisplay();
+                saveGameData();
+            }
+        }, 3600000); // 1 час
+        
+        // Инициализация при загрузке
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
