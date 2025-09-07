@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DOcoin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,6 +11,10 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         body {
@@ -21,6 +25,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation;
         }
         
         .container {
@@ -103,6 +108,7 @@
             transition: all 0.2s;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
         }
         
         .mine-button:active {
@@ -272,25 +278,19 @@
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             border: 1px solid #500;
         }
         
-        .task-info {
-            flex-grow: 1;
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
         
         .task-name {
             font-weight: bold;
             color: #ff2a2a;
-            margin-bottom: 5px;
-        }
-        
-        .task-description {
-            font-size: 0.9em;
-            color: #aaa;
         }
         
         .task-reward {
@@ -299,155 +299,120 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
-            margin-left: 10px;
         }
         
-        .shop-item {
+        .task-description {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .task-progress {
+            width: 100%;
+            height: 10px;
+            background: #300;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff2a2a, #800);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        
+        .task-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+        
+        .task-completed {
+            background: rgba(0, 80, 0, 0.5);
+            border-color: #080;
+        }
+        
+        .task-completed .task-name {
+            color: #0f0;
+        }
+        
+        .task-completed .progress-bar {
+            background: linear-gradient(90deg, #0f0, #080);
+        }
+        
+        .telegram-link {
+            display: block;
+            text-align: center;
+            background: #0088cc;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        .telegram-link:hover {
+            background: #006699;
+        }
+        
+        .upgrade-item {
             background: rgba(40, 0, 0, 0.5);
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 15px;
-            text-align: center;
-            cursor: pointer;
             border: 1px solid #500;
-            transition: all 0.3s;
         }
         
-        .shop-item:hover {
-            background: rgba(60, 0, 0, 0.7);
-            transform: translateY(-3px);
-        }
-        
-        .shop-item-image {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, #ff2a2a, #800);
-            border-radius: 10px;
-            margin: 0 auto 15px;
+        .upgrade-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            color: white;
-        }
-        
-        .shop-item-name {
-            font-weight: bold;
-            color: #ff2a2a;
-            margin-bottom: 5px;
-            font-size: 1.2em;
-        }
-        
-        .shop-item-price {
-            color: #aaa;
-            font-size: 1.1em;
-        }
-        
-        .product-details {
-            text-align: center;
-        }
-        
-        .product-image {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(45deg, #ff2a2a, #800);
-            border-radius: 15px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            color: white;
-        }
-        
-        .product-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ff2a2a;
             margin-bottom: 10px;
         }
         
-        .product-price {
-            font-size: 1.3em;
-            color: #fff;
-            margin-bottom: 20px;
+        .upgrade-name {
+            font-weight: bold;
+            color: #ff2a2a;
         }
         
-        .buttons-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 20px;
+        .upgrade-price {
+            background: #ff2a2a;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
         }
         
-        .action-button {
-            flex: 1;
-            padding: 12px;
+        .upgrade-description {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .upgrade-button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff2a2a, #800);
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
         }
         
-        .back-button {
-            background: #333;
-            color: white;
-        }
-        
-        .back-button:hover {
-            background: #555;
-        }
-        
-        .order-button {
-            background: linear-gradient(45deg, #ff2a2a, #800);
-            color: white;
-        }
-        
-        .order-button:hover {
+        .upgrade-button:hover {
             background: linear-gradient(45deg, #ff4040, #a00);
         }
         
-        .address-input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #500;
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1em;
-        }
-        
-        .address-input:focus {
-            outline: none;
-            border-color: #ff2a2a;
-        }
-        
-        .history-item {
-            background: rgba(40, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #500;
-        }
-        
-        .history-order-number {
-            font-weight: bold;
-            color: #ff2a2a;
-            margin-bottom: 10px;
-        }
-        
-        .history-details {
-            color: #aaa;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-        
-        .history-status {
-            color: #ff2a2a;
-            font-weight: bold;
-            text-align: right;
+        .upgrade-button:disabled {
+            background: #555;
+            cursor: not-allowed;
         }
         
         .loader {
@@ -477,10 +442,36 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Анимация монетки */
+        @keyframes coinAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .coin-animation {
+            animation: coinAnimation 0.3s ease;
+        }
+        
+        /* Предотвращение масштабирования при двойном тапе */
+        @media (max-width: 768px) {
+            .mine-button {
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+        
         .error-message {
             color: #ff2a2a;
             text-align: center;
-            margin-bottom: 15px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .success-message {
+            color: #0f0;
+            text-align: center;
+            margin: 10px 0;
             font-weight: bold;
         }
     </style>
@@ -527,9 +518,9 @@
                 <div class="menu-icon"><i class="fas fa-store"></i></div>
                 <div class="menu-text">Магазин</div>
             </div>
-            <div class="menu-item" onclick="openModal('bonus')">
-                <div class="menu-icon"><i class="fas fa-gift"></i></div>
-                <div class="menu-text">Бонусы</div>
+            <div class="menu-item" onclick="openModal('upgrades')">
+                <div class="menu-icon"><i class="fas fa-arrow-up"></i></div>
+                <div class="menu-text">Улучшения</div>
             </div>
             <div class="menu-item" onclick="openModal('tasks')">
                 <div class="menu-icon"><i class="fas fa-tasks"></i></div>
@@ -554,84 +545,7 @@
         </div>
     </div>
 
-    <!-- Модальное окно магазина -->
-    <div class="modal" id="shop-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Магазин DOcoin</h2>
-                <button class="close-modal" onclick="closeModal('shop')">&times;</button>
-            </div>
-            <div class="shop-items">
-                <div class="shop-item" onclick="openProduct('cap')">
-                    <div class="shop-item-image">🧢</div>
-                    <div class="shop-item-name">Кепка DOcoin</div>
-                    <div class="shop-item-price">5000 DOcoin</div>
-                </div>
-                <div class="shop-item" onclick="openProduct('tshirt')">
-                    <div class="shop-item-image">👕</div>
-                    <div class="shop-item-name">Футболка DOcoin</div>
-                    <div class="shop-item-price">10000 DOcoin</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно товара -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="product-modal-title">Товар</h2>
-                <button class="close-modal" onclick="closeModal('product')">&times;</button>
-            </div>
-            <div class="product-details">
-                <div class="product-image" id="product-image">🧢</div>
-                <div class="product-name" id="product-name">Кепка DOcoin</div>
-                <div class="product-price" id="product-price">5000 DOcoin</div>
-                <div class="buttons-container">
-                    <button class="action-button back-button" onclick="backToShop()">Назад</button>
-                    <button class="action-button order-button" onclick="startOrder()">Заказать</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно заказа -->
-    <div class="modal" id="order-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Оформление заказа</h2>
-                <button class="close-modal" onclick="closeModal('order')">&times;</button>
-            </div>
-            <div id="order-content">
-                <div class="product-details">
-                    <div class="product-image" id="order-product-image">🧢</div>
-                    <div class="product-name" id="order-product-name">Кепка DOcoin</div>
-                    <div class="product-price" id="order-product-price">5000 DOcoin</div>
-                </div>
-                <input type="text" class="address-input" id="address-input" placeholder="Введите адрес доставки">
-                <div class="buttons-container">
-                    <button class="action-button back-button" onclick="backToProduct()">Отмена</button>
-                    <button class="action-button order-button" onclick="processPayment()">Оплатить</button>
-                </div>
-                <div id="error-message" class="error-message"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно истории заказов -->
-    <div class="modal" id="history-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">История заказов</h2>
-                <button class="close-modal" onclick="closeModal('history')">&times;</button>
-            </div>
-            <div id="orders-list">
-                <!-- Заказы будут добавляться здесь -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Остальные модальные окна -->
+    <!-- Модальное окно заданий -->
     <div class="modal" id="tasks-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -640,41 +554,98 @@
             </div>
             <div class="task-list">
                 <div class="task-item" id="task1">
-                    <div class="task-info">
+                    <div class="task-header">
                         <div class="task-name">Подписка на Telegram</div>
-                        <div class="task-description">Подпишитесь на наш Telegram-канал</div>
+                        <div class="task-reward">+5 DOcoin</div>
                     </div>
-                    <div class="task-reward">+5 DOcoin</div>
+                    <div class="task-description">Подпишитесь на наш Telegram-канал</div>
+                    <a href="https://t.me/+bFN-tmt4SsVjMDIy" target="_blank" class="telegram-link">
+                        <i class="fab fa-telegram"></i> Перейти в Telegram
+                    </a>
+                    <div class="task-progress">
+                        <div class="progress-bar" id="task1-progress" style="width: 0%;"></div>
+                    </div>
+                    <div class="task-status">
+                        <span>Прогресс:</span>
+                        <span id="task1-status">Не выполнено</span>
+                    </div>
                 </div>
+                
                 <div class="task-item" id="task2">
-                    <div class="task-info">
+                    <div class="task-header">
                         <div class="task-name">Ежедневный вход</div>
-                        <div class="task-description">Заходите в игру 7 дней подряд</div>
+                        <div class="task-reward">+10 DOcoin</div>
                     </div>
-                    <div class="task-reward">+10 DOcoin</div>
+                    <div class="task-description">Заходите в игру 7 дней подряд</div>
+                    <div class="task-progress">
+                        <div class="progress-bar" id="task2-progress" style="width: 0%;"></div>
+                    </div>
+                    <div class="task-status">
+                        <span>Прогресс:</span>
+                        <span id="task2-status">0/7 дней</span>
+                    </div>
                 </div>
+                
                 <div class="task-item" id="task3">
-                    <div class="task-info">
-                        <div class="task-name">Пригласи друга</div>
-                        <div class="task-description">Пригласите друга по реферальной ссылке</div>
-                    </div>
-                    <div class="task-reward">+15 DOcoin</div>
-                </div>
-                <div class="task-item" id="task4">
-                    <div class="task-info">
+                    <div class="task-header">
                         <div class="task-name">Майнинг-марафон</div>
-                        <div class="task-description">Намайните 100 DOcoin за сутки</div>
+                        <div class="task-reward">+20 DOcoin</div>
                     </div>
-                    <div class="task-reward">+20 DOcoin</div>
-                </div>
-                <div class="task-item" id="task5">
-                    <div class="task-info">
-                        <div class="task-name">Социальная активность</div>
-                        <div class="task-description">Поделитесь игрой в социальных сетях</div>
+                    <div class="task-description">Намайните 100 DOcoin</div>
+                    <div class="task-progress">
+                        <div class="progress-bar" id="task3-progress" style="width: 0%;"></div>
                     </div>
-                    <div class="task-reward">+8 DOcoin</div>
+                    <div class="task-status">
+                        <span>Прогресс:</span>
+                        <span id="task3-status">0/100 DOcoin</span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно улучшений -->
+    <div class="modal" id="upgrades-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Улучшения майнера</h2>
+                <button class="close-modal" onclick="closeModal('upgrades')">&times;</button>
+            </div>
+            <div id="upgrades-list">
+                <!-- Улучшения будут добавляться здесь -->
+            </div>
+            <div id="upgrade-message"></div>
+        </div>
+    </div>
+
+    <!-- Остальные модальные окна -->
+    <div class="modal" id="shop-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Магазин</h2>
+                <button class="close-modal" onclick="closeModal('shop')">&times;</button>
+            </div>
+            <p style="text-align: center; color: #aaa; padding: 20px;">Магазин скоро откроется!</p>
+        </div>
+    </div>
+
+    <div class="modal" id="referral-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Рефералы</h2>
+                <button class="close-modal" onclick="closeModal('referral')">&times;</button>
+            </div>
+            <p style="text-align: center; color: #aaa; padding: 20px;">Реферальная программа скоро будет доступна!</p>
+        </div>
+    </div>
+
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Вывод средств</h2>
+                <button class="close-modal" onclick="closeModal('withdraw')">&times;</button>
+            </div>
+            <p style="text-align: center; color: #aaa; padding: 20px;">Функция вывода скоро будет доступна!</p>
         </div>
     </div>
 
@@ -724,40 +695,6 @@
         </div>
     </div>
 
-    <div class="modal" id="withdraw-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Вывод средств</h2>
-                <button class="close-modal" onclick="closeModal('withdraw')">&times;</button>
-            </div>
-            <div class="soon-text">Скоро</div>
-            <p style="text-align: center; color: #aaa; padding: 0 20px 20px;">
-                Функция вывода средств будет доступна в ближайшее время. 
-                Следите за обновлениями!
-            </p>
-        </div>
-    </div>
-
-    <div class="modal" id="bonus-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Бонусы</h2>
-                <button class="close-modal" onclick="closeModal('bonus')">&times;</button>
-            </div>
-            <p style="text-align: center; color: #aaa; padding: 20px;">Ежедневные бонусы скоро появятся!</p>
-        </div>
-    </div>
-
-    <div class="modal" id="referral-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Рефералы</h2>
-                <button class="close-modal" onclick="closeModal('referral')">&times;</button>
-            </div>
-            <p style="text-align: center; color: #aaa; padding: 20px;">Реферальная программа скоро будет доступна!</p>
-        </div>
-    </div>
-
     <!-- Индикатор загрузки -->
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
@@ -773,6 +710,18 @@
         let autoMineEnabled = false;
         let currentProduct = null;
         let orders = [];
+        let lastVisitDate = null;
+        let consecutiveDays = 0;
+        let totalMined = 0;
+        let baseMiningRate = 0.0045; // Увеличен в 15 раз (0.0003 * 15)
+        let miningMultiplier = 1;
+        let upgrades = [
+            { id: 1, name: "Улучшение процессора", level: 0, price: 15, bonus: 0.05 },
+            { id: 2, name: "Улучшение видеокарты", level: 0, price: 75, bonus: 0.05 },
+            { id: 3, name: "Улучшение охлаждения", level: 0, price: 375, bonus: 0.05 },
+            { id: 4, name: "Улучшение питания", level: 0, price: 1875, bonus: 0.05 },
+            { id: 5, name: "Улучшение сети", level: 0, price: 9375, bonus: 0.05 }
+        ];
         
         const mineButton = document.getElementById('mineButton');
         const balanceDisplay = document.getElementById('balance');
@@ -795,10 +744,24 @@
                 income = data.income || 0;
                 autoMineEnabled = data.autoMineEnabled || false;
                 orders = data.orders || [];
+                lastVisitDate = data.lastVisitDate || null;
+                consecutiveDays = data.consecutiveDays || 0;
+                totalMined = data.totalMined || 0;
+                miningMultiplier = data.miningMultiplier || 1;
+                upgrades = data.upgrades || upgrades;
+                
+                // Проверка ежедневного входа
+                checkDailyLogin();
                 
                 // Установка переключателя автомайнинга
                 autoMineSwitch.checked = autoMineEnabled;
                 updateAutoMineStatus();
+                
+                // Обновление улучшений
+                updateUpgradesList();
+                
+                // Обновление прогресса заданий
+                updateTasksProgress();
                 
                 // Запуск автомайнинга если он был включен
                 if (autoMineEnabled) {
@@ -822,6 +785,31 @@
             });
         }
         
+        // Проверка ежедневного входа
+        function checkDailyLogin() {
+            const today = new Date().toDateString();
+            
+            if (lastVisitDate !== today) {
+                if (lastVisitDate) {
+                    const lastVisit = new Date(lastVisitDate);
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    
+                    if (lastVisit.toDateString() === yesterday.toDateString()) {
+                        consecutiveDays++;
+                    } else {
+                        consecutiveDays = 1;
+                    }
+                } else {
+                    consecutiveDays = 1;
+                }
+                
+                lastVisitDate = today;
+                updateTasksProgress();
+                saveGameData();
+            }
+        }
+        
         // Функция майнинга
         mineButton.addEventListener('click', function() {
             mineCoins();
@@ -835,8 +823,12 @@
         
         // Функция добычи монет
         function mineCoins() {
-            balance += 0.0003 * power;
+            const minedAmount = baseMiningRate * power * miningMultiplier;
+            balance += minedAmount;
+            totalMined += minedAmount;
+            
             updateDisplay();
+            updateTasksProgress();
             saveGameData();
             
             // Анимация баланса
@@ -869,7 +861,7 @@
         // Обновление статуса автомайнинга
         function updateAutoMineStatus() {
             if (autoMineEnabled) {
-                autoMineStatus.textContent = 'Автомайнинг: включен (+0.0003 каждые 5 сек)';
+                autoMineStatus.textContent = `Автомайнинг: включен (+${(baseMiningRate * power * miningMultiplier * 12).toFixed(4)}/мин)`;
                 autoMineStatus.style.color = '#0f0';
             } else {
                 autoMineStatus.textContent = 'Автомайнинг: выключен';
@@ -881,8 +873,106 @@
         function updateDisplay() {
             balanceDisplay.textContent = balance.toFixed(4);
             powerDisplay.textContent = power;
-            incomeDisplay.textContent = income.toFixed(4) + '/ч';
+            incomeDisplay.textContent = (income * miningMultiplier).toFixed(4) + '/ч';
             levelDisplay.textContent = level;
+        }
+        
+        // Обновление прогресса заданий
+        function updateTasksProgress() {
+            // Задание 2 - Ежедневный вход
+            const task2Progress = document.getElementById('task2-progress');
+            const task2Status = document.getElementById('task2-status');
+            const progressPercent = Math.min(100, (consecutiveDays / 7) * 100);
+            
+            task2Progress.style.width = `${progressPercent}%`;
+            task2Status.textContent = `${consecutiveDays}/7 дней`;
+            
+            if (consecutiveDays >= 7) {
+                document.getElementById('task2').classList.add('task-completed');
+                task2Status.textContent = 'Выполнено!';
+            }
+            
+            // Задание 3 - Майнинг-марафон
+            const task3Progress = document.getElementById('task3-progress');
+            const task3Status = document.getElementById('task3-status');
+            const minedPercent = Math.min(100, (totalMined / 100) * 100);
+            
+            task3Progress.style.width = `${minedPercent}%`;
+            task3Status.textContent = `${totalMined.toFixed(2)}/100 DOcoin`;
+            
+            if (totalMined >= 100) {
+                document.getElementById('task3').classList.add('task-completed');
+                task3Status.textContent = 'Выполнено!';
+            }
+        }
+        
+        // Обновление списка улучшений
+        function updateUpgradesList() {
+            const upgradesList = document.getElementById('upgrades-list');
+            upgradesList.innerHTML = '';
+            
+            upgrades.forEach(upgrade => {
+                const upgradeElement = document.createElement('div');
+                upgradeElement.className = 'upgrade-item';
+                
+                const nextLevel = upgrade.level + 1;
+                const nextPrice = upgrade.price * Math.pow(5, upgrade.level);
+                const nextBonus = upgrade.bonus * nextLevel;
+                
+                upgradeElement.innerHTML = `
+                    <div class="upgrade-header">
+                        <div class="upgrade-name">${upgrade.name} Ур.${nextLevel}</div>
+                        <div class="upgrade-price">${nextPrice} DOcoin</div>
+                    </div>
+                    <div class="upgrade-description">
+                        +${(nextBonus * 100).toFixed(0)}% к добыче за клик
+                    </div>
+                    <button class="upgrade-button" onclick="buyUpgrade(${upgrade.id})" 
+                            ${balance < nextPrice ? 'disabled' : ''}>
+                        Купить улучшение
+                    </button>
+                `;
+                
+                upgradesList.appendChild(upgradeElement);
+            });
+        }
+        
+        // Покупка улучшения
+        function buyUpgrade(upgradeId) {
+            const upgrade = upgrades.find(u => u.id === upgradeId);
+            const nextLevel = upgrade.level + 1;
+            const nextPrice = upgrade.price * Math.pow(5, upgrade.level);
+            
+            if (balance < nextPrice) {
+                showMessage('К сожалению, недостаточно средств для покупки улучшения', 'error');
+                return;
+            }
+            
+            showLoader();
+            
+            setTimeout(() => {
+                balance -= nextPrice;
+                upgrade.level = nextLevel;
+                miningMultiplier += upgrade.bonus;
+                
+                updateDisplay();
+                updateUpgradesList();
+                saveGameData();
+                hideLoader();
+                
+                showMessage('Вы успешно улучшили майнер!', 'success');
+            }, 1000);
+        }
+        
+        // Показать сообщение
+        function showMessage(message, type) {
+            const messageElement = document.getElementById('upgrade-message');
+            messageElement.textContent = message;
+            messageElement.className = type === 'error' ? 'error-message' : 'success-message';
+            
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 3000);
         }
         
         // Сохранение данных игры
@@ -893,7 +983,12 @@
                 level: level,
                 income: income,
                 autoMineEnabled: autoMineEnabled,
-                orders: orders
+                orders: orders,
+                lastVisitDate: lastVisitDate,
+                consecutiveDays: consecutiveDays,
+                totalMined: totalMined,
+                miningMultiplier: miningMultiplier,
+                upgrades: upgrades
             };
             localStorage.setItem('docoinGameData', JSON.stringify(gameData));
         }
@@ -902,151 +997,14 @@
         function openModal(modalType) {
             document.getElementById(modalType + '-modal').style.display = 'flex';
             
-            // Если открываем историю, обновляем список заказов
-            if (modalType === 'history') {
-                updateOrdersList();
+            // Если открываем улучшения, обновляем список
+            if (modalType === 'upgrades') {
+                updateUpgradesList();
             }
         }
         
         function closeModal(modalType) {
             document.getElementById(modalType + '-modal').style.display = 'none';
-        }
-        
-        // Функции для магазина
-        function openProduct(productType) {
-            currentProduct = productType;
-            const modal = document.getElementById('product-modal');
-            const title = document.getElementById('product-modal-title');
-            const image = document.getElementById('product-image');
-            const name = document.getElementById('product-name');
-            const price = document.getElementById('product-price');
-            
-            if (productType === 'cap') {
-                title.textContent = 'Кепка DOcoin';
-                image.textContent = '🧢';
-                name.textContent = 'Кепка DOcoin';
-                price.textContent = '5000 DOcoin';
-            } else if (productType === 'tshirt') {
-                title.textContent = 'Футболка DOcoin';
-                image.textContent = '👕';
-                name.textContent = 'Футболка DOcoin';
-                price.textContent = '10000 DOcoin';
-            }
-            
-            closeModal('shop');
-            modal.style.display = 'flex';
-        }
-        
-        function backToShop() {
-            closeModal('product');
-            openModal('shop');
-        }
-        
-        function startOrder() {
-            const modal = document.getElementById('order-modal');
-            const image = document.getElementById('order-product-image');
-            const name = document.getElementById('order-product-name');
-            const price = document.getElementById('order-product-price');
-            
-            if (currentProduct === 'cap') {
-                image.textContent = '🧢';
-                name.textContent = 'Кепка DOcoin';
-                price.textContent = '5000 DOcoin';
-            } else if (currentProduct === 'tshirt') {
-                image.textContent = '👕';
-                name.textContent = 'Футболка DOcoin';
-                price.textContent = '10000 DOcoin';
-            }
-            
-            // Очищаем поле адреса и сообщение об ошибке
-            document.getElementById('address-input').value = '';
-            document.getElementById('error-message').textContent = '';
-            
-            closeModal('product');
-            modal.style.display = 'flex';
-        }
-        
-        function backToProduct() {
-            closeModal('order');
-            openModal('product');
-        }
-        
-        function processPayment() {
-            const address = document.getElementById('address-input').value.trim();
-            const errorElement = document.getElementById('error-message');
-            
-            if (!address) {
-                errorElement.textContent = 'Введите адрес доставки';
-                return;
-            }
-            
-            const productPrice = currentProduct === 'cap' ? 5000 : 10000;
-            
-            if (balance < productPrice) {
-                errorElement.textContent = 'Недостаточно DOcoin для покупки';
-                return;
-            }
-            
-            // Показываем загрузку
-            showLoader();
-            
-            // Имитация обработки заказа
-            setTimeout(() => {
-                // Списываем средства
-                balance -= productPrice;
-                
-                // Создаем заказ
-                const order = {
-                    id: generateOrderId(),
-                    product: currentProduct === 'cap' ? 'Кепка DOcoin' : 'Футболка DOcoin',
-                    price: productPrice,
-                    address: address,
-                    status: 'В обработке',
-                    date: new Date().toLocaleDateString()
-                };
-                
-                orders.push(order);
-                
-                // Сохраняем данные
-                saveGameData();
-                updateDisplay();
-                
-                // Скрываем загрузку
-                hideLoader();
-                
-                // Закрываем окно заказа и открываем историю
-                closeModal('order');
-                openModal('history');
-            }, 1000);
-        }
-        
-        function generateOrderId() {
-            return 'DOC-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-        }
-        
-        function updateOrdersList() {
-            const ordersList = document.getElementById('orders-list');
-            ordersList.innerHTML = '';
-            
-            if (orders.length === 0) {
-                ordersList.innerHTML = '<p style="text-align: center; color: #aaa;">У вас пока нет заказов</p>';
-                return;
-            }
-            
-            // Показываем заказы в обратном порядке (последние сначала)
-            orders.slice().reverse().forEach(order => {
-                const orderElement = document.createElement('div');
-                orderElement.className = 'history-item';
-                orderElement.innerHTML = `
-                    <div class="history-order-number">Заказ #${order.id}</div>
-                    <div class="history-details">Товар: ${order.product}</div>
-                    <div class="history-details">Адрес: ${order.address}</div>
-                    <div class="history-details">Цена: ${order.price} DOcoin</div>
-                    <div class="history-details">Дата: ${order.date}</div>
-                    <div class="history-status">${order.status}</div>
-                `;
-                ordersList.appendChild(orderElement);
-            });
         }
         
         // Функции загрузки
@@ -1071,7 +1029,7 @@
         // Автоматический доход каждый час
         setInterval(() => {
             if (income > 0) {
-                balance += income;
+                balance += income * miningMultiplier;
                 updateDisplay();
                 saveGameData();
             }
